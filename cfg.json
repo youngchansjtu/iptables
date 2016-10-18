@@ -1,0 +1,59 @@
+{
+
+    "横扫千军": {
+        "check": {
+            "url": "http://{dstip}/server/status",
+            "timeout": 2.0,
+            "retries": 3
+        },
+        "dstip": {
+            "primary": "120.55.238.50",
+            "secondary": "223.202.17.48"
+        },
+        "prerouting": {
+            "chain": "HENGSAO_NAT_PRE",
+            "rules": [
+                {
+                    "proto": "tcp",
+                    "dport": "80",
+                    "target": "DNAT",
+                    "to_ports": "80"
+                },
+               {
+                    "proto": "tcp",
+                    "dport": "8080",
+                    "target": "DNAT",
+                    "to_ports": "8080"
+                },
+               {
+                    "proto": "tcp",
+                    "dport": "7000",
+                    "target": "DNAT",
+                    "to_ports": "7000"
+                },
+               {
+                    "proto": "tcp",
+                    "dport": "8889",
+                    "target": "DNAT",
+                    "to_ports": "8889"
+                }, 
+               {
+                    "proto": "tcp",
+                    "dport": "8888",
+                    "target": "DNAT",
+                    "to_ports": "8889"
+                }
+            ]
+        },
+        "postrouting": {
+            "chain": "HENGSAO_NAT_POST",
+            "rules": [
+                {
+                    "proto": "ip",
+                    "target": "MASQUERADE"
+                }
+            ]
+        }
+    }
+
+}
